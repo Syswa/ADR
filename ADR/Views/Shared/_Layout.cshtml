@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ADR</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/css/jquery.jqChart.css" rel="stylesheet" />
+    <link href="~/css/jquery.jqGauges.css" rel="stylesheet" />
+    <link href="~/css/jquery.jqRangeSlider.css" rel="stylesheet" />
+    <link href="~/css/jquery-ui.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -22,27 +28,29 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Contactos</a>
+        </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    
             @RenderBody()
-        </main>
-    </div>
-
+        
+ 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - ADR - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container" style="text-align:center">
+            &copy; 2020 - ADR - <a asp-area="" asp-controller="Home" asp-action="Privacy">Analise de Desempenho da Rede</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.jqChart.min.js"></script>
+    <script src="~/js/jquery.jqGauges.min.js"></script>
+    <script src="~/js/jquery.jqRangeSlider.min.js"></script>
+    <script src="~/js/jquery.mousewheel.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -1,8 +1,284 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "ADR-System";
+}
+
+@section scripts{
+
+
+
+    <script>
+
+      
+            var ShowTrends = [];
+           var HostList = [];
+        var statistic = [];
+        
+     
+      ///  $(document).ready(function () {
+
+
+
+            $("#SendPing").click(function () {
+
+                var host= $("#host").val();
+                HostList.push(host);
+               
+                $("#TREAL").slideToggle().show();
+                $(".panel-body").css("height", "480px");
+                
+            });
+
+
+       
+
+            $('#TREAL').jqChart({
+
+                title: "Performance",
+                legend: {
+                    title: 'Legend',
+
+                },
+
+
+                tooltips: { type: 'shared' },
+                shadows: {
+                    enabled: true
+                },
+
+
+                crosshairs: {
+                    enabled: true,
+                    hLine: false,
+                    vLine: { strokeStyle: '#cc0a0c' }
+                },
+
+
+
+
+                series: [
+
+                    {
+                        title: 'Status',
+                        type: 'column',///'line',//
+                        data: ShowTrends,
+                        markers: null
+                    }
+
+                  
+                ]
+
+
+            });
+
+
+          
+            updateChart();
+
+  
+
+
+        //------Function to update the Charts
+        function updateChart() {
+
+
+            if (HostList.length>0) {
+
+
+
+                // update chart
+                $('#TREAL').jqChart('update');
+
+               
+
+                $.ajax({
+                    cache: false,
+                    async: false,
+                    type: "POST",
+                    dataType: "Json",
+                    contentType: "application/json; charset=utf-8",
+                    url: '/Home/HostPing?GethostnameIP=' + HostList[0],
+                    data: {},
+
+
+                    success: function (data) {
+
+                      
+                        var len = data.length;
+                     
+                        for (var l = 0; l < len; l++) {
+
+                            statistic.push([data[l].timeNow, data[l].pingTime, data[l].ttl, data[l].hostname, data[l].hostIP, data[l].bytes]);
+
+                            if (ShowTrends.length > 15) {
+
+                               ShowTrends.splice(0, 1);
+                                ShowTrends.push([data[l].timeNow, data[l].pingTime]);
+
+                            } else {
+                               
+                                ShowTrends.push([data[l].timeNow, data[l].pingTime]);
+                              // console.log(data[l]);
+                            }
+
+                            if (statistic.length>10) {
+
+                                $("#tbBody").find("tr:gt(0)").remove();
+                                statistic = [];
+
+                            } else {
+
+                                $("#tbBody").append("<tr><td>" + data[l].pingTime + "</td><td>" + data[l].timeNow + "</td><td>" + data[l].ttl + "</td></tr>");
+
+                            }
+
+                          
+                            $("#HostIP").text(data[0].hostname + " & " + data[0].hostIP);
+                           
+                        }
+
+                    }
+
+
+
+
+                });
+
+
+               // console.log(statistic.length);
+               
+
+            }
+
+
+            setTimeout("updateChart()", 1000);
+
+           
+
+        }
+
+        ///--------------------------------Tooltips configuraction
+
+        $('#TREAL').bind('tooltipFormat', function (e, data) {
+
+            if ($.isArray(data) == false) {
+
+                var date = data.chart.stringFormat(new Date(data.x), "dd/mm/yyyy HH:MM:ss");
+
+                var tooltip = '<b>' + date + '</b></br>';
+
+                tooltip += '<span style="color:' + data.series.fillStyle + '">' +
+                    data.series.title + '</span>: <b>' + data.y + '</b></br>';
+
+                return tooltip;
+            }
+
+            var date = data[1].chart.stringFormat(new Date(data[1].x), "dd/mm/yyyy HH:MM:ss");
+
+            var tooltip = '<b>' + date + '</b></br>';
+
+            for (var i = 0; i < data.length; i++) {
+
+                var context = data[i];
+
+                tooltip += '<span style="color:' + context.series.fillStyle + '">' +
+                    context.series.title + '</span>:<b> ' + context.y + '</b></br>';
+            }
+
+            return tooltip;
+        });
+
+       
+        
+
+    </script>
+
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h2>Bem-Vindo a Analise de Desempenho da Rede</h2>
+
+
+
+    <div class="col-md-7 col-lg-7 col-sm-7">
+        <!-------------Panel bottom left----------------->
+        <div class="panel panel-primary">
+
+            <div class="panel-heading panel-title" style="text-align:left">Tempo Real &nbsp; <span class="glyphicon glyphicon-equalizer"></span></div>
+
+            <div class="panel-body">
+
+
+                <div class='col-lg-12 col-md-12 col-sm-12'>
+
+                    <div id="TREAL" style="width:99%; height: 400px;  margin-bottom:20px; display:none"></div>
+
+                </div>
+                <form>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                        <input type="text" class="form-control" placeholder="host/IP(google.com)" id="host">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="SendPing">
+                                <i class="glyphicon glyphicon-transfer"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="panel-footer"></div>
+
+        </div>
+
+
+    </div>
+
+    <div class="col-md-5 col-lg-5 col-sm-5">
+        <!-------------Panel bottom right----------------->
+        <div class="panel panel-danger">
+
+            <div class="panel-heading panel-title" style="text-align:left"> Estatistica&nbsp; <span class="glyphicon glyphicon-stats"></span> </div>
+
+            <div class="panel-body">
+
+
+                <div class='col-lg-12 col-md-12 col-sm-12'>
+
+                  
+                    <table class="table table-bordered">
+                      
+                        <thead>
+                            <tr>
+                                <th>Terminal & IP</th>
+                                
+                                <th colspan="2" id="HostIP"></th>
+                            </tr>
+                            <tr>
+                                <th>Ping Time (ms)</th>
+                                <th>Time (mm:ss)</th>
+                                <th>TTL</th>
+                            </tr>
+                        </thead>
+
+                        <tbody style="text-align:justify" id="tbBody">
+                            
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+            </div>
+
+            <div class="panel-footer"></div>
+
+        </div>
+
+
+    </div>
 </div>
+
+
+

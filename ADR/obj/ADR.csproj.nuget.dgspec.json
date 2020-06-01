@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\wagostinho\\Documents\\GitHub\\SoftDev\\ADR\\ADR.csproj": {}
+    "C:\\Users\\wagostinho\\Documents\\GitHub\\ADR\\ADR\\ADR.csproj": {}
   },
   "projects": {
-    "C:\\Users\\wagostinho\\Documents\\GitHub\\SoftDev\\ADR\\ADR.csproj": {
+    "C:\\Users\\wagostinho\\Documents\\GitHub\\ADR\\ADR\\ADR.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\wagostinho\\Documents\\GitHub\\SoftDev\\ADR\\ADR.csproj",
+        "projectUniqueName": "C:\\Users\\wagostinho\\Documents\\GitHub\\ADR\\ADR\\ADR.csproj",
         "projectName": "ADR",
-        "projectPath": "C:\\Users\\wagostinho\\Documents\\GitHub\\SoftDev\\ADR\\ADR.csproj",
+        "projectPath": "C:\\Users\\wagostinho\\Documents\\GitHub\\ADR\\ADR\\ADR.csproj",
         "packagesPath": "C:\\Users\\wagostinho\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\wagostinho\\Documents\\GitHub\\SoftDev\\ADR\\obj\\",
+        "outputPath": "C:\\Users\\wagostinho\\Documents\\GitHub\\ADR\\ADR\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\wagostinho\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -37,6 +37,12 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
