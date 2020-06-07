@@ -14,6 +14,12 @@
 
 
 # Produção
+
+## User Story
+- Inserir o IP ou o servidor do terminal que pretende analisar o desempenho
+- Clicar em analisar
+- O sistema mostrar-ra o desempenho da rede em forma de gráfico e em tabela duma forma dinamica ate que o usuário cancele.
+
 ## Deployment
 - Sistema operativo
 - Compativel com todos os sistemas operativos
