@@ -22,7 +22,7 @@
   },
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "ADR/1.0.0": {
+      "ADR/1.0.1": {
         "dependencies": {
           "Microsoft.AspNet.Mvc": "5.2.7",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
@@ -2077,7 +2077,7 @@
     }
   },
   "libraries": {
-    "ADR/1.0.0": {
+    "ADR/1.0.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

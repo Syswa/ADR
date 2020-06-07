@@ -45,14 +45,14 @@ namespace ADR.Controllers
         {
           //  System.Diagnostics.Debug.WriteLine("Qual?-" + GethostnameIP);
 
-            Ping ping = new Ping();
-            PingReply reply = ping.Send(GethostnameIP, 1000);
-            IPHostEntry entry = Dns.GetHostEntry(GethostnameIP);
+           
             List<HostDetails> HOST_IP_details = new List<HostDetails>();
           
             try
             {
-
+                Ping ping = new Ping();
+                PingReply reply = ping.Send(GethostnameIP, 1000);
+                IPHostEntry entry = Dns.GetHostEntry(GethostnameIP);
 
                 if (reply == null)
                 {
@@ -65,18 +65,26 @@ namespace ADR.Controllers
                  
                     HOST_IP_details.Add(new HostDetails() { Hostname = entry.HostName, HostIP = reply.Address.ToString(), PingTime = reply.RoundtripTime,TTL = reply.Options.Ttl, TimeNow = DateTime.Now.ToString("HH:mm:ss"), Bytes = reply.Buffer.Length });
                 }
+                else
+                {
 
-                
+                    System.Diagnostics.Debug.WriteLine("Qual? eh o erro: "+ reply.Address.ToString());
+                   HOST_IP_details.Add(new HostDetails() { Hostname = entry.HostName, HostIP = reply.Address.ToString(), PingTime = 0, TTL = 0, TimeNow = DateTime.Now.ToString("HH:mm:ss"), Bytes = 0 });
+
+                }
+
+
             }
             catch (PingException ex)
             {
-
                
-                return Json("Error Message: " + ex.Message);
-
-                HOST_IP_details.Add(new HostDetails() { Hostname = entry.HostName, HostIP = reply.Address.ToString(), PingTime = 0, TTL = 0, TimeNow = DateTime.Now.ToString("HH:mm:ss"), Bytes = 0 });
 
 
+              //  return Json("Error Message: " + ex.Message);
+
+                HOST_IP_details.Add(new HostDetails() { Hostname = "Unknown", HostIP = "Unknown", PingTime = 0, TTL = 0, TimeNow = DateTime.Now.ToString("HH:mm:ss"), Bytes = 0 });
+
+                System.Diagnostics.Debug.WriteLine("Qual? eh o erro:" + ex.Message);
             }
 
 

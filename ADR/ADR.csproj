@@ -3,6 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RepositoryUrl></RepositoryUrl>
+    <Version>1.0.1</Version>
+    <Authors>Wilson Agostinho</Authors>
+    <Product>ADR</Product>
+    <Company>syswa</Company>
+    <Description>Este aplicação web foi desenvolvido para mostrar o desempenho de uma rede na comunicação de dois terminais.</Description>
   </PropertyGroup>
 
   <ItemGroup>

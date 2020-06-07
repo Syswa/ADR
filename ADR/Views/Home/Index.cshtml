@@ -52,14 +52,31 @@
                     vLine: { strokeStyle: '#cc0a0c' }
                 },
 
+                axes: [
+                    {
+
+                        location: 'bottom',
+
+                        labels: {
+                            resolveOverlappingMode: 'hide'
+                        },
+
+                        interval: 1,//1 year 500
+                        zoomEnabled: true,
+                        intervalType: 'minutes'
+
+
+
+                    }
+                ],
 
 
 
                 series: [
 
                     {
-                        title: 'Status',
-                        type: 'column',///'line',//
+                        title: 'Latency',
+                        type: 'line',///'line',//column
                         data: ShowTrends,
                         markers: null
                     }
@@ -109,7 +126,7 @@
 
                             statistic.push([data[l].timeNow, data[l].pingTime, data[l].ttl, data[l].hostname, data[l].hostIP, data[l].bytes]);
 
-                            if (ShowTrends.length > 15) {
+                            if (ShowTrends.length > 200) {
 
                                ShowTrends.splice(0, 1);
                                 ShowTrends.push([data[l].timeNow, data[l].pingTime]);
@@ -124,7 +141,7 @@
 
                                 $("#tbBody").find("tr:gt(0)").remove();
                                 statistic = [];
-
+                               
                             } else {
 
                                 $("#tbBody").append("<tr><td>" + data[l].pingTime + "</td><td>" + data[l].timeNow + "</td><td>" + data[l].ttl + "</td></tr>");
@@ -216,7 +233,7 @@
                 <form>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-                        <input type="text" class="form-control" placeholder="host/IP(google.com)" id="host">
+                        <input type="text" class="form-control" placeholder="host/IP(google.com)" id="host" required="">
                         <div class="input-group-btn">
                             <button class="btn btn-default" type="button" id="SendPing">
                                 <i class="glyphicon glyphicon-transfer"></i>
@@ -255,7 +272,7 @@
                                 <th colspan="2" id="HostIP"></th>
                             </tr>
                             <tr>
-                                <th>Ping Time (ms)</th>
+                                <th>Lat&ecirc;ncia (ms)</th>
                                 <th>Time (mm:ss)</th>
                                 <th>TTL</th>
                             </tr>
